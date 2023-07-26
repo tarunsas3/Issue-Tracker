@@ -43,9 +43,11 @@
         <li>
           <label for="title" class="title"><%= i.title %></label>
           <label for="description" class="description"><%= i.description %></label>
-          <% for (p of i.labels) { %>
-            <label for="labels" class="tagLabel"><%= p%></label>
-          <% } %>
+          <div class="tagLabelContainer">
+            <% for (p of i.labels) { %>
+              <label for="labels" class="tagLabel"><%= p%></label>
+              <% } %>
+            </div>
           <label for="author" class="author"><%= i.author %></label>
         </li>
       <% } %>
