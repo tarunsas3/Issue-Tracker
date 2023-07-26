@@ -81,10 +81,12 @@
             if (allLabelsMatch) {
               const listItem = document.createElement('li');
               listItem.innerHTML = `
-                <label for="title">${issue.title}</label>
-                <label for="description">${issue.description}</label>
-                <label for="labels">${issue.labels.map(label => `<label>${label}</label>`).join(' ')}</label>
-                <label for="author">${issue.author}</label>
+                <label for="title" class="title">${issue.title}</label>
+                <label for="description" class="description">${issue.description}</label>
+                <div class="tagLabelContainer">
+                  ${issue.labels.map(label => `<label class="tagLabel">${label}</label>`).join(' ')}
+                </div>
+                <label for="author" class="author">${issue.author}</label>
               `;
               filteredIssuesList.appendChild(listItem);
             }
