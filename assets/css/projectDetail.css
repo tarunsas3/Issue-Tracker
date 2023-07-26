@@ -282,8 +282,10 @@ body ::-webkit-scrollbar {
   margin-top: 20px;
   font-weight: bold;
 }
-.taskIssues ul li .tagLabel {
+.taskIssues ul li .tagLabelContainer {
   margin-top: 20px;
+}
+.taskIssues ul li .tagLabelContainer .tagLabel {
   background: red;
   width: -moz-fit-content;
   width: fit-content;
