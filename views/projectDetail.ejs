@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include ('partials/header.ejs')%>
+  <link rel="stylesheet" href="/css/projectDetail.css">
+</head>
+<body>
+  <div class="taskDetails">
+    <div class="container">
+      <label for="name" class="title"><%= project.title %></label>
+      <label for="description" class="description"><%= project.description %></label>
+      <label for="author" class="author"><%= project.author %></label>
+    </div>
+  </div>
+  <div class="taskFilters">
+    <div class="wrapper">
+      <select name="labels" id="labels" multiple>
+        <option value="Bug">Bug</option>
+        <option value="Error">Error</option>
+        <option value="Defect">Defect</option>
+        <option value="Failure">Failure</option>
+        <option value="Fault">Fault</option>
+      </select>
+      <select name="authors" id="authors" class="authors">
+        <option value="" disabled selected hidden></option>
+        <% const uniqueAuthors = Array.from(new Set(issues.map((issue) => issue.author))); %>
+        <% uniqueAuthors.forEach((author) => { %>
+          <option value="<%= author %>"><%= author %></option>
+          <% }); %>
+        </select>
+        <i class="fa-solid fa-angle-down arrowIcon"></i>
+        <input type="text" id="filterTitle" class="title" placeholder="Search by Title">
+        <input type="text" id="filterDescription" class="description" placeholder="Search by Description">
+    </div>
+    <div class="buttonContainer">
+          <button onclick="filterIssues()" class="filter"><i class="fa-solid fa-filter filterIcon"></i>Filter</button>
+          <button onclick="addIssue()" class="issue"><i class="fa-solid fa-bug bugIcon"></i>Add Issue</button>
+    </div>
+  </div>
+  <div class="taskIssues">
+    <ul id="filteredIssuesList">
+      <% for (i of issues) { %>
+        <li>
+          <label for="title" class="title"><%= i.title %></label>
+          <label for="description" class="description"><%= i.description %></label>
+          <% for (p of i.labels) { %>
+            <label for="labels" class="tagLabel"><%= p%></label>
+          <% } %>
+          <label for="author" class="author"><%= i.author %></label>
+        </li>
+      <% } %>
+    </ul>
+  </div>
+  <%- include ('partials/footer.ejs')%>
+  <script>
+    function addIssue() {
+      let id = location.href.split("/")[4];
+      location.href = "/addIssue/" + id;
+    }
+    function filterIssues() {
+      const projectId = location.href.split("/")[4];
+      const filterTitle = document.getElementById('filterTitle').value.trim();
+      const filterDescription = document.getElementById('filterDescription').value.trim();
+      const selectedLabels = Array.from(document.querySelectorAll('#labels option:checked')).map(option => option.value);
+      const selectedAuthors = document.getElementById('authors').value;
+
+      fetch(`/view/${projectId}/filter?title=${filterTitle}&description=${filterDescription}&labels=${selectedLabels.join(',')}&author=${selectedAuthors}`)
+        .then(response => response.json())
+        .then(filteredData => {
+          const filteredIssuesList = document.getElementById('filteredIssuesList');
+          if (!filteredIssuesList) {
+            console.error("Element with ID 'filteredIssuesList' not found.");
+            return;
+          }
+          filteredIssuesList.innerHTML = ''; // Clear previous content
+
+          filteredData.forEach(issue => {
+            const allLabelsMatch = selectedLabels.every(label => issue.labels.includes(label));
+            if (allLabelsMatch) {
+              const listItem = document.createElement('li');
+              listItem.innerHTML = `
+                <label for="title">${issue.title}</label>
+                <label for="description">${issue.description}</label>
+                <label for="labels">${issue.labels.map(label => `<label>${label}</label>`).join(' ')}</label>
+                <label for="author">${issue.author}</label>
+              `;
+              filteredIssuesList.appendChild(listItem);
+            }
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching filtered data:', error);
+        });
+  }
+  </script>
+</body>
+</html>

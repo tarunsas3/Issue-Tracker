@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include ('partials/header.ejs')%>
+  <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+  <div class="projectDisplay">
+    <div class="buttonContainer">
+      <button onclick="location.href = '/newProject'"><i class="fa-regular fa-square-plus iconAdd"></i>Create</button>
+    </div>
+    <ul>
+      <% for (i of projects) { %>
+        <li>
+          <div class="contents">
+            <label for="name" class="title"><%= i.title %></label>
+            <label for="description" class="description"><%= i.description %></label>
+            <label for="author" class="author"><%= i.author %></label>
+            </div>
+          <button onclick="location.href =  '/view/' + value" value="<%= i._id%>"><i class="fa-sharp fa-solid fa-circle-info infoIcon"></i></button>
+        </li>
+      <% } %>
+    </ul>
+  </div>
+</body>
+</html>

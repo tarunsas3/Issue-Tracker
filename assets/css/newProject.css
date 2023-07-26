@@ -1,0 +1,54 @@
+* {
+  font-family: cascadia code;
+  font-size: large;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #dde1e7;
+}
+body ::-webkit-scrollbar {
+  display: none;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  background: #dde1e7;
+  margin: 5% 10% 2% 25%;
+  width: 50%;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: -3px -3px 7px rgba(255, 255, 255, 0.4509803922), 2px 2px 5px rgba(94, 104, 121, 0.288);
+}
+form label {
+  margin: 10px 0px 10px 0px;
+  font-weight: bolder;
+}
+form button {
+  display: flex;
+  margin: 20px 20px 10px 300px;
+  width: 170px;
+  padding: 0.3rem;
+  background-color: green;
+  color: white;
+  font-weight: bolder;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px #babecc, -5px -5px 10px rgba(255, 255, 255, 0.4509803922);
+}
+form button .icon {
+  margin: 2.5px 10px 0px 5px;
+}
+form input {
+  padding: 1rem;
+  background: #dde1e7;
+  margin-top: 10px;
+  height: 10px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px rgba(255, 255, 255, 0.4509803922);
+  outline: none;
+}/*# sourceMappingURL=newProject.css.map */

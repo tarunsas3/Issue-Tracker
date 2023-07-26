@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include ('partials/header.ejs')%>
+  <link rel="stylesheet" href="/css/issue.css">
+</head>
+<body>
+  <form id="tagForm" method="post">
+    <input name="id" type="text" value="<%= id %>"hidden>
+    <label for="title">Title</label>
+    <input type="text" name="title">
+    <label for="description">Description</label>
+    <input type="text" name="description">
+    <label for="labels">Tags</label>
+    <select name="labels" id="labels" multiple>
+      <option value="Bug">Bug</option>
+      <option value="Error">Error</option>
+      <option value="Defect">Defect</option>
+      <option value="Failure">Failure</option>
+      <option value="Fault">Fault</option>
+    </select>
+    <label for="author">Author</label>
+    <input type="text" name="author">
+    <button onclick="submitIssue()" class="issueButton"><i class="fa-solid fa-plus icon"></i>Create Issue</button>
+  </form>
+  <%- include ('partials/footer.ejs')%>
+  <script>
+    function submitIssue(){
+    let id = location.href.split("/")[4]
+    let form = document.getElementById('tagForm');
+    form.action = "/createIssue/" + id
+    }
+  </script>
+</body>
+</html>
