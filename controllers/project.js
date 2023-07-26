@@ -14,7 +14,7 @@ module.exports.create = function (req, res) {
     author: req.body.author,
   })
     .then(() => {
-      return res.redirect("/");
+      return res.redirect("https://tasty-jade-caterpillar.cyclic.app/");
     })
     .catch((err) => {
       console.log("Error creating project", err);
